@@ -12,6 +12,7 @@ gnomeshell = find_program('gnome-shell', required: false)
 
 # Variable, used several times in install scripts
 mid = '$MESON_INSTALL_DESTDIR_PREFIX/'
+message(mid)
 
 
 ##### REGULAR BUILD
@@ -75,10 +76,10 @@ dirs_array = [
 
 # Create variables for theme directories
 foreach theme : themes_array
-  set_variable(theme[1] + 'theme_dir', join_paths(get_option('datadir'), 'themes', theme[0]))
+  set_variable(theme[1] + 'theme_dir', join_paths(get_option('datadir'), '.themes', theme[0]))
 
   foreach dir : dirs_array
-    set_variable(theme[1] + dir[1], join_paths(get_option('datadir'), 'themes', theme[0], dir[0]))
+    set_variable(theme[1] + dir[1], join_paths(get_option('datadir'), '.themes', theme[0], dir[0]))
   endforeach
 endforeach
 
@@ -445,13 +446,13 @@ if get_option('flatpak')
 
 if get_option('flatpak-variant') == 'light'
   if get_option('flatpak-size') == 'regular'
-    theme_dir = join_paths(get_option('datadir'), 'themes', 'Lounge')
+    theme_dir = join_paths(get_option('datadir'), '.themes', 'Lounge')
     gtk3_variants = [['light', '',      'regular'],
                      ['dark',  '-dark', 'regular']]
     exclude_assets = ['_none', '_compact']
 
   else
-    theme_dir = join_paths(get_option('datadir'), 'themes', 'Lounge-compact')
+    theme_dir = join_paths(get_option('datadir'), '.themes', 'Lounge-compact')
     gtk3_variants = [['light', '',      'compact'],
                      ['dark',  '-dark', 'compact']]
     exclude_assets = ['_none', '_regular']
@@ -459,12 +460,12 @@ if get_option('flatpak-variant') == 'light'
   endif
 else
   if get_option('flatpak-size') == 'regular'
-    theme_dir = join_paths(get_option('datadir'), 'themes', 'Lounge-night')
+    theme_dir = join_paths(get_option('datadir'), '.themes', 'Lounge-night')
     gtk3_variants = [['dark', '', 'regular']]
     exclude_assets = ['_light', '_compact']
 
   else
-    theme_dir = join_paths(get_option('datadir'), 'themes', 'Lounge-night-compact')
+    theme_dir = join_paths(get_option('datadir'), '.themes', 'Lounge-night-compact')
     gtk3_variants = [['dark', '', 'compact']]
     exclude_assets = ['_light', '_regular']
 
